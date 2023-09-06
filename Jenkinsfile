@@ -17,12 +17,11 @@ pipeline {
 }
     stage('SonarQube analysis') {
             environment {
-        def   scannerHome = tool 'gitesh-sonar-scanner';
+            scannerHome = tool 'gitesh-sonar-scanner'
         }
-    steps  
+    steps {
     withSonarQubeEnv('gitesh-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
       sh "${scannerHome}/bin/sonar-scanner"
     }
     }
-    
-
+   }
