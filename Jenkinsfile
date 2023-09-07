@@ -13,7 +13,7 @@ pipeline {
  }
     Stages{
 	    stage("build") {
-            steps {
+            steps{
                     echo "------------------------- build started -------------------"
                         sh 'mvn clean deploy _Dmaven.test.skip=true'
                     echo "------------------------- build completed -------------------"
@@ -31,14 +31,14 @@ pipeline {
                 environment {
                 scannerHome = tool 'gitesh-sonar-scanner'
     }
-            steps {
+            steps{
             withSonarQubeEnv('gitesh-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
                 sh "${scannerHome}/bin/sonar-scanner"
          }   }
     }   
       
         stage("Jar Publish") {
-            steps {
+            steps{
                 script {
                     echo '<--------------- Jar Publish Started --------------->'
                         def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifact-cred"
@@ -62,6 +62,4 @@ pipeline {
             }
         }   }
     }   
-    
-
-
+ 
