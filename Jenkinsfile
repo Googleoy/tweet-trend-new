@@ -14,21 +14,20 @@ pipeline {
     Stages{
 	    stage("build") {
             steps {
-                       echo "------------------------- build started -------------------"
-                    sh 'mvn clean deploy _Dmaven.test.skip=true'
-                        echo "------------------------- build completed -------------------"
+                    echo "------------------------- build started -------------------"
+                        sh 'mvn clean deploy _Dmaven.test.skip=true'
+                    echo "------------------------- build completed -------------------"
                 }
             }
-                    stage("test"){
+        stage("test"){
             steps{
-                echo "------------------------- unit test started -------------------"
-            sh 'mvn surefire-report:report'
-                echo "------------------------- build completed -------------------"
+                    echo "------------------------- unit test started -------------------"
+                         sh 'mvn surefire-report:report'
+                    echo "------------------------- build completed -------------------"
         }
     }
 }
-    stages {
-            stage('SonarQube analysis') {
+        stage('SonarQube analysis') {
                 environment {
                 scannerHome = tool 'gitesh-sonar-scanner'
     }
@@ -37,14 +36,14 @@ pipeline {
                 sh "${scannerHome}/bin/sonar-scanner"
          }   }
     }   
-    stages{    
-            stage("Jar Publish") {
-                steps {
-                 script {
-                      echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifact-cred"
-                     def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
-                     def uploadSpec = """{
+      
+        stage("Jar Publish") {
+            steps {
+                script {
+                    echo '<--------------- Jar Publish Started --------------->'
+                        def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifact-cred"
+                        def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
+                        def uploadSpec = """{
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
@@ -62,8 +61,7 @@ pipeline {
             
             }
         }   }
-    }   }
-    } 
-
+    }   
+    
 
 
