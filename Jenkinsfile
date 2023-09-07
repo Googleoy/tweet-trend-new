@@ -1,6 +1,6 @@
 def registry = 'https://gitya.jfrog.io'
 pipeline {
-     agent 
+     agent {
         node {
             label 'maven-slave'
         }
@@ -60,7 +60,11 @@ pipeline {
             
             }
         }   	
-           }      }   }   
+           }    
+           
+           }  
+ }   
+}
 
-                    
+            
                
