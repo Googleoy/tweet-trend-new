@@ -24,7 +24,7 @@ pipeline {
         }
     }
 }
-        stages {
+    stages {
             stage('SonarQube analysis') {
             environment {
             scannerHome = tool 'gitesh-sonar-scanner'
@@ -34,7 +34,7 @@ pipeline {
                 sh "${scannerHome}/bin/sonar-scanner"
          }   }
         }   
-        stages {    
+    stages {    
             stage("Jar Publish") {
                 steps {
                  script {
