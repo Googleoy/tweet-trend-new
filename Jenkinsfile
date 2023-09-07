@@ -25,7 +25,7 @@ pipeline {
     }
 }
         stage('SonarQube analysis') {
-        environment {
+            environment {
             scannerHome = tool 'gitesh-sonar-scanner'
     }
             steps {
@@ -35,7 +35,7 @@ pipeline {
         }   
              
          stage("Jar Publish") {
-        steps {
+            steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
                      def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"artifact-cred"
