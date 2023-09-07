@@ -1,22 +1,25 @@
-def registry = 'https://gitya.jfrog.io'
+def registry = 'https://gitya.jfrog.io/'
 pipeline {
-    agent {
+     agent {
         node {
             label 'maven-slave'
         }
     }
-    environment {
+   environment {
         PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
     }
-    stages {
-        stage("build") {
+    environment {
+        PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
+ }
+             Stages{
+	stage("build") {
             steps {
                        echo "------------------------- build started -------------------"
                     sh 'mvn clean deploy _Dmaven.test.skip=true'
                         echo "------------------------- build completed -------------------"
                 }
             }
-        stage("test"){
+                    stage("test"){
             steps{
                 echo "------------------------- unit test started -------------------"
             sh 'mvn surefire-report:report'
@@ -24,7 +27,7 @@ pipeline {
         }
     }
 }
-    stages {
+              stages {
             stage('SonarQube analysis') {
             environment {
             scannerHome = tool 'gitesh-sonar-scanner'
@@ -58,8 +61,9 @@ pipeline {
                      echo '<--------------- Jar Publish Ended --------------->'  
             
             }
-        }   
-    }   
-    } }
-} 
+        }   }
+    }   }
+    } 
+
+
 
