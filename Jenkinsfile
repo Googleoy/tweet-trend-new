@@ -5,14 +5,14 @@ pipeline {
             label 'maven-slave'
         }
     }
-   environment {
+        environment {
         PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
     }
-    environment {
+        environment {
         PATH = "/opt/apache-maven-3.9.4/bin:$PATH"
  }
-             Stages{
-	stage("build") {
+    Stages{
+	    stage("build") {
             steps {
                        echo "------------------------- build started -------------------"
                     sh 'mvn clean deploy _Dmaven.test.skip=true'
@@ -27,17 +27,17 @@ pipeline {
         }
     }
 }
-              stages {
+    stages {
             stage('SonarQube analysis') {
-            environment {
-            scannerHome = tool 'gitesh-sonar-scanner'
+                environment {
+                scannerHome = tool 'gitesh-sonar-scanner'
     }
             steps {
             withSonarQubeEnv('gitesh-sonarqube-server') { // If you have configured more than one global server connection, you can specify its name
                 sh "${scannerHome}/bin/sonar-scanner"
          }   }
-        }   
-    stages {    
+    }   
+    stages{    
             stage("Jar Publish") {
                 steps {
                  script {
